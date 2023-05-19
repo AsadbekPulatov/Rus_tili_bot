@@ -4,20 +4,12 @@ include 'Telegram.php';
 require_once 'User.php';
 require_once 'Drug.php';
 
-$bot_token = "6218862478:AAEuzoqa2QGdDFSeiP4N3mxo42x0dOj73Ac";
+$bot_token = "5982490005:AAHL9JjQ7f45QAfmEYGcGgUtlFrfrL5Y81U";
 $telegram = new Telegram($bot_token);
 
 $chat_id = $telegram->ChatID();
 $text = $telegram->Text();
 $first_name = $telegram->FirstName();
-
-$video = "https://www.youtube.com/watch?v=I-SERw0jz-M";
-
-$telegram->sendVideo([
-    'chat_id' => $chat_id,
-    'video' => $video,
-    'caption' => "Yangi foydalanuvchi: $first_name",
-]);
 
 $user = new User($chat_id);
 $page = $user->getPage();
