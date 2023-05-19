@@ -2,6 +2,7 @@
 
 include 'Telegram.php';
 require_once 'User.php';
+require_once 'Lesson.php';
 
 $bot_token = "5982490005:AAHL9JjQ7f45QAfmEYGcGgUtlFrfrL5Y81U";
 $telegram = new Telegram($bot_token);
