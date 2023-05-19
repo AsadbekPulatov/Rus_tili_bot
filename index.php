@@ -12,17 +12,33 @@
     <title>Dars qo'shish</title>
 </head>
 <body>
-    <h1 align="center" class="text text-primary container">Dars qo'shish</h1>
-    <form action="addProduct.php" method="post" class="container">
-        <div class="mb-3">
-            <label for="name" class="form-label">Dars nomi</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="mb-3">
-            <label for="url" class="form-label">Dars manzili</label>
-            <input type="url" class="form-control" id="url" name="url" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Dars qo'shish</button>
-    </form>
+<h1 align="center" class="text text-primary container">Darslar ro'yxati</h1>
+<div class="container">
+    <a href="create.php" class="btn btn-info float-end m-3">Dars qo'shish</a>
+    <table class="table table-bordered text-center">
+        <tr>
+            <th>Nomi</th>
+            <th>Video</th>
+            <th>Amallar</th>
+        </tr>
+        <?php
+        require_once "connect.php";
+        global $connect;
+        $sql = "SELECT * FROM lessons";
+        $result = $connect->query($sql);
+        $lessons = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td><a href='{$row['url']}' >" . $row['url'] . "</a></td>";
+                echo "<td><a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger'>O'chirish</a></td>";
+                echo "</tr>";
+            }
+        }
+        ?>
+    </table>
+</div>
+
 </body>
 </html>
