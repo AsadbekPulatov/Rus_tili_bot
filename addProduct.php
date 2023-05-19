@@ -24,6 +24,7 @@ if ($result->num_rows > 0) {
             'text' => $text,
             'parse_mode' => 'HTML',
         ];
+        $telegram->sendMessage($content);
     }
 }
 
