@@ -114,16 +114,15 @@ function showLesson($name){
     $user->setPage("result");
 
     $text = "Dori haqida ma'lumot:";
-    $drug = new Drug();
-    $drugs = $drug->searchDrug($name);
-    $drug = $drugs[0];
-    $text .= "\nNomi: " . $drug['name'];
-    $text .= "\nQo'llanilishi: " . $drug['description'];
-    $text .= "\nNarxi: " . $drug['price']." so'm";
-    $text .= "\nSoni: " . $drug['count']." ta";
+    $lesson = new Lesson();
+    $lesson = $lesson->searchLesson($name);
+    $lesson = $lesson[0];
+    $text .= "\n\n<b>Nomi:</b> " . $lesson['name'];
+    $text .= "<a href='" . $lesson['video'] . "'>{$lesson['name']}</a>";
     $content = [
         'chat_id' => $chat_id,
         'text' => $text,
+        'parse_mode' => 'HTML',
     ];
     $telegram->sendMessage($content);
 }
