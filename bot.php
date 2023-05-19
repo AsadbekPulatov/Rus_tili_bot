@@ -2,7 +2,6 @@
 
 include 'Telegram.php';
 require_once 'User.php';
-require_once 'Drug.php';
 
 $bot_token = "5982490005:AAHL9JjQ7f45QAfmEYGcGgUtlFrfrL5Y81U";
 $telegram = new Telegram($bot_token);
@@ -21,19 +20,19 @@ if ($text == "/start") {
     switch ($page) {
         case "main":
             switch ($text) {
-                case "Dorilar ro'yxati 📁":
+                case "Darslar ro'yxati 📁":
                     showList();
                     break;
-                case "Dorini qidirish 🔎":
+                case "Darsni qidirish 🔎":
                     askDrug();
                     break;
             }
             break;
         case "search":
-            searchDrug($text);
+            searchLesson($text);
             break;
         case "result":
-            showDrug($text);
+            showLesson($text);
             break;
     }
 }
@@ -43,10 +42,10 @@ function showMainPage()
     global $chat_id, $telegram, $user;
     $user->setPage("main");
 
-    $text = "Dorixona botiga xush kelibsiz!";
+    $text = "Rus tilini o'rgatadigan botga xush kelibsiz!";
 
     $options = [
-        [$telegram->buildKeyboardButton("Dorilar ro'yxati 📁"), $telegram->buildKeyboardButton("Dorini qidirish 🔎")],
+        [$telegram->buildKeyboardButton("Darslar ro'yxati 📁"), $telegram->buildKeyboardButton("Darsni qidirish 🔎")],
     ];
     $keyboard = $telegram->buildKeyBoard($options, false, true);
     $content = [
@@ -61,13 +60,14 @@ function showList(){
     global $chat_id, $telegram, $user;
     $user->setPage("result");
 
-    $text = "Dorilar ro'yxati";
-    $drug = new Drug();
-    $drugs = $drug->getDrugs();
+    $text = "Darslar ro'yxati:";
+    $lesson = new Lesson();
+    $lessons = $lesson->getLessons();
     $options = [];
-    foreach ($drugs as $item) {
+    foreach ($lessons as $item) {
         $options[] = [$telegram->buildKeyboardButton($item['name'])];
     }
+
     $keyboard = $telegram->buildKeyBoard($options, false, true);
     $content = [
         'chat_id' => $chat_id,
@@ -81,7 +81,7 @@ function askDrug(){
     global $chat_id, $telegram, $user;
     $user->setPage("search");
 
-    $text = "Dori nomini kiriting";
+    $text = "Dars nomini kiriting";
     $content = [
         'chat_id' => $chat_id,
         'text' => $text,
@@ -89,15 +89,15 @@ function askDrug(){
     $telegram->sendMessage($content);
 }
 
-function searchDrug($name){
+function searchLesson($name){
     global $chat_id, $telegram, $user;
     $user->setPage("result");
 
     $text = "Qidiruv natijalari:";
-    $drug = new Drug();
-    $drugs = $drug->searchDrug($name);
+    $lesson = new Lesson();
+    $lessons = $lesson->searchLesson($name);
     $options = [];
-    foreach ($drugs as $item) {
+    foreach ($lessons as $item) {
         $options[] = [$telegram->buildKeyboardButton($item['name'])];
     }
     $keyboard = $telegram->buildKeyBoard($options, false, true);
@@ -109,7 +109,7 @@ function searchDrug($name){
     $telegram->sendMessage($content);
 }
 
-function showDrug($name){
+function showLesson($name){
     global $chat_id, $telegram, $user;
     $user->setPage("result");
 
