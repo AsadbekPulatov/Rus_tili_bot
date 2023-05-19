@@ -114,12 +114,13 @@ function showLesson($name){
     global $chat_id, $telegram, $user;
     $user->setPage("result");
 
-    $text = "Dori haqida ma'lumot:";
+
     $lesson = new Lesson();
     $lesson = $lesson->searchLesson($name);
     $lesson = $lesson[0];
-    $text .= "\n\n<b>Nomi:</b> " . $lesson['name'];
-    $text .= "<a href='" . $lesson['video'] . "'>{$lesson['name']}</a>";
+    $text = $lesson['name'];
+    $text .= "\n\n";
+    $text .= $lesson['url'];
     $content = [
         'chat_id' => $chat_id,
         'text' => $text,
