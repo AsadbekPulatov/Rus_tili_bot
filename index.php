@@ -22,7 +22,7 @@
             <label for="url" class="form-label">Dars manzili</label>
             <input type="url" class="form-control" id="url" name="url" required>
         </div>
-        <button type="submit" class="btn btn-primary">Dori qo'shish</button>
+        <button type="submit" class="btn btn-primary">Dars qo'shish</button>
     </form>
 </body>
 </html>

@@ -23,7 +23,7 @@ $sql = "CREATE TABLE lessons (
     )";
 
 if ($connect->query($sql) === TRUE) {
-    echo "Table products created successfully";
+    echo "Table lessons created successfully";
 } else {
     echo "Error creating table: " . $connect->error;
 }
